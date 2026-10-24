@@ -1,0 +1,39 @@
+---
+import Layout from '../layouts/Layout.astro';
+import LetterGlitch from '../React/LetterGlitch';
+import { profile } from '../data/profile';
+import '../styles/portfolio.css';
+const gmailComposeUrl = `https://mail.google.com/mail/?${new URLSearchParams({ view: 'cm', fs: '1', to: profile.email, su: 'Let’s connect — portfolio' }).toString()}`;
+const skills = [
+  { title: 'Programming', mark: '01', text: 'Building a foundation in logic, structured programming, and object-oriented thinking.', tags: ['C', 'Java', 'Problem solving'] },
+  { title: 'Web development', mark: '02', text: 'Turning ideas into responsive interfaces. Growing through hands-on web projects.', tags: ['HTML', 'CSS', 'JavaScript'] },
+  { title: 'Exploring next', mark: '03', text: 'Connecting my Data Science studies with practical projects and cloud fundamentals.', tags: ['Data Science', 'Cloud fundamentals', 'Android'] },
+];
+---
+<Layout title={profile.name}>
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="header wrap">
+    <a class="brand" href="#home" aria-label="Home"><span class="brand-mark">&lt;/&gt;</span> <span>{profile.name}<small>STUDENT PORTFOLIO</small></span></a>
+    <nav aria-label="Main navigation"><a href="#about">About</a><a href="#skills">Skills</a><a href="#projects">Projects</a><a class="nav-contact" href="#contact">Let’s connect</a></nav>
+  </header>
+  <main id="main">
+    <section id="home" class="hero wrap">
+      <div class="hero-copy"><p class="eyebrow">CSE / DATA SCIENCE / YEAR 02</p><p class="intro">Hi, I’m {profile.name}.</p>
+      <h1>Curious mind.<br />Code in <span>progress.</span></h1>
+      <p class="hero-description">Learning by building. I’m a CSE student exploring the space between thoughtful web experiences and data-driven ideas.</p>
+      <div class="actions"><a class="button primary" href="#projects">Explore my work</a><a class="button secondary" href="#about">A little about me</a></div>
+      </div>
+      <div class="hero-art" aria-hidden="true"><div class="art-top"><span>THE LEARNING NEVER STOPS</span><span>01 / ∞</span></div><div class="glitch"><LetterGlitch client:load glitchColors={["#22c55e", "#4ade80", "#86efac", "#166534"]} glitchSpeed={60} centerVignette={false} outerVignette={true} smooth={false} /></div><div class="art-bottom"><span>Ideas. Experiments. Small breakthroughs.</span><b>&lt;/&gt;</b></div></div>
+    </section>
+    <div class="tech-strip"><div class="wrap"><span>MY FOUNDATION</span><b>C</b><b>Java</b><b>HTML</b><b>CSS</b><b>JavaScript</b><span class="strip-end">Always learning.</span></div></div>
+    <section class="wrap section about" id="about"><div><p class="eyebrow">01 / ABOUT ME</p><h2>A builder<br />in the making.</h2></div><div><p class="about-lead">{profile.about}</p><p class="muted">My focus is simple: understand the fundamentals, ask better questions, and put what I learn into practice.</p><div class="education"><span class="label">CURRENTLY STUDYING</span><h3>{profile.education}</h3><p>{profile.year} · Learning through coursework and projects</p></div></div></section>
+    <section class="wrap section" id="skills"><div class="section-heading"><div><p class="eyebrow">02 / TOOLKIT</p><h2>What I’m working with.</h2></div><p class="muted">A foundation to build on.<br />Room to keep growing.</p></div><div class="skills-grid">{skills.map(skill=><article class="skill-card"><span class="card-number">{skill.mark}</span><h3>{skill.title}</h3><p>{skill.text}</p><div class="tags">{skill.tags.map(tag=><span>{tag}</span>)}</div></article>)}</div></section>
+    <section class="wrap section" id="projects"><div class="section-heading"><div><p class="eyebrow">03 / PROJECTS</p><h2>From ideas to experiments.</h2></div><span class="muted">Building, one project at a time.</span></div>
+      <article class="project"><div class="project-index">01</div><div class="project-main"><div class="project-meta"><span>WEB DEVELOPMENT</span><span class="badge">Personal project</span></div><h3>My corner of the web.</h3><p>A personal portfolio to bring together my skills, studies, and project journey. Built from the Dark Minimal template with a focus on clarity and responsive design.</p><div class="tags"><span>Astro</span><span>React</span><span>Responsive design</span></div><details><summary>Inside this project</summary><p>The portfolio uses reusable components, local fonts, responsive layouts, and a canvas-based character animation from the original template. A single profile file keeps personal details easy to update.</p></details></div></article>
+      <article class="project"><div class="project-index">02</div><div class="project-main"><div class="project-meta"><span>AI / PERSONALIZED LEARNING</span><span class="badge">Personal project</span></div><h3>Nextstep-AI</h3><p>Analyzes student goals, selects between coding practice, cloud learning, projects and interview preparation, then creates a personalized learning plan.</p><div class="tags"><span>AI</span><span>Personalized learning</span><span>Learning plans</span></div><a class="project-link" href="https://devavrath10.github.io/Nextstep-AI/" target="_blank" rel="noopener noreferrer" aria-label="Explore Nextstep-AI (opens in a new tab)">Explore Nextstep-AI</a></div></article>
+    </section>
+    <section class="wrap section learning"><p class="eyebrow">04 / THE NEXT CHAPTER</p><div class="learning-grid"><h2>Stay curious.<br />Keep building.</h2><div><p>Deepen my programming fundamentals. Build more useful web projects. Explore data science and cloud computing through practice.</p><p class="muted">The goal is to turn classroom knowledge into software that solves real problems.</p></div></div></section>
+    <section class="contact wrap" id="contact"><p class="eyebrow">05 / CONNECT</p><h2>Good ideas start<br />with a conversation.</h2><p>Interested in a student project, a collaboration, or learning together?</p><div class="actions">{profile.email && <span class="contact-email">{profile.email}</span>}{profile.email ? <a class="button primary" href={gmailComposeUrl} target="_blank" rel="noopener noreferrer" aria-label="Connect via Gmail (opens a draft in a new tab)">Connect via Gmail</a> : <span class="contact-pending">Contact details coming soon</span>}</div><div class="actions social-links" aria-label="Social profiles">{profile.github && <a class="button secondary" href={profile.github} target="_blank" rel="noopener noreferrer">GitHub</a>}{profile.linkedin && <a class="button secondary" href={profile.linkedin} target="_blank" rel="noopener noreferrer">LinkedIn</a>}</div></section>
+  </main>
+  <footer class="wrap"><p>© {new Date().getFullYear()} {profile.name}</p><a href="#home">Back to top</a></footer>
+</Layout>
